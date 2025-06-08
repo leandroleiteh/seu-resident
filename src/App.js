@@ -131,7 +131,7 @@ const SeuResidentLanding = () => {
                             : 'border-2 border-[#359e93] text-[#359e93] hover:bg-[#359e93] hover:text-white'
                     }`}
                 >
-                  {formData.plan === 'monthly' ? 'Selecionado' : 'Selecionar Plano'}
+                  {formData.plan === 'annual' ? 'Selecionado' : 'Selecionar Plano'}
                 </button>
               </div>
 
@@ -258,7 +258,7 @@ const SeuResidentLanding = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ano da residência *
+                    Período *
                   </label>
                   <select
                       name="residencyYear"

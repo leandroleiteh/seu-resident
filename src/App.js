@@ -26,7 +26,7 @@ const SeuResidentLanding = () => {
     phone: '',
     specialty: '',
     residencyYear: '',
-    plan: 'monthly'
+    plan: 'annual'
   });
 
   useEffect(() => {
@@ -131,7 +131,7 @@ const SeuResidentLanding = () => {
                             : 'border-2 border-[#359e93] text-[#359e93] hover:bg-[#359e93] hover:text-white'
                     }`}
                 >
-                  {formData.plan === 'annual' ? 'Selecionado' : 'Selecionar Plano'}
+                  {formData.plan === 'monthly' ? 'Selecionado' : 'Selecionar Plano'}
                 </button>
               </div>
 

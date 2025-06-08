@@ -325,7 +325,7 @@ const SeuResidentLanding = () => {
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Sua rotina no ciclo clínico muda a cada duas semanas.
+              Sua rotina no internato muda a cada duas semanas.
               <span className="block text-[#359e93]">Seu estudo continua igual?</span>
             </h1>
 

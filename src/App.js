@@ -273,12 +273,12 @@ const SeuResidentLanding = () => {
                     <option value="R4">Quarto</option>
                     <option value="R5">Quinto</option>
                     <option value="R6">Sexto</option>
-                    <option value="R6">Sétimo</option>
-                    <option value="R6">Oitavo</option>
-                    <option value="R6">Nono</option>
-                    <option value="R6">Décimo</option>
-                    <option value="R6">Décimo Primeiro</option>
-                    <option value="R6">Décimo Segundo</option>
+                    <option value="R7">Sétimo</option>
+                    <option value="R8">Oitavo</option>
+                    <option value="R9">Nono</option>
+                    <option value="R10">Décimo</option>
+                    <option value="R11">Décimo Primeiro</option>
+                    <option value="R12">Décimo Segundo</option>
                   </select>
                 </div>
 

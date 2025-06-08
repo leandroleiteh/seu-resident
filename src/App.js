@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Brain, Clock, Target, Users, Check, Play, Star, ArrowRight, Calendar, DollarSign } from 'lucide-react';
 import './index.css';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDEZivtm-6qD_uvBzwAo6IXJAcbxWXoRfs",
+  authDomain: "tamara-salgados.firebaseapp.com",
+  projectId: "tamara-salgados",
+  storageBucket: "tamara-salgados.firebasestorage.app",
+  messagingSenderId: "1008458240497",
+  appId: "1:1008458240497:web:e01810ee30b0f8596bf450",
+  measurementId: "G-1868XQ0YC0"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const SeuResidentLanding = () => {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -25,25 +40,27 @@ const SeuResidentLanding = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const mensagem = `Olá! Gostaria de conhecer mais sobre o Seu Residente 👋
+    try {
+      const docRef = await addDoc(collection(db, "leads"), {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        specialty: formData.specialty,
+        residencyYear: formData.residencyYear,
+        plan: formData.plan,
+        timestamp: new Date(),
+      });
 
-*Dados do cadastro:*
-Nome: ${formData.name}
-Email: ${formData.email}
-Telefone: ${formData.phone}
-Especialidade: ${formData.specialty}
-Ano de Residência: ${formData.residencyYear}
-Plano de interesse: ${formData.plan === 'monthly' ? 'Mensal' : 'Anual'}
-
-Aguardo mais informações! 😊`;
-
-    const whatsappLink = `https://wa.me/5511947165215?text=${encodeURIComponent(mensagem)}`;
-    window.open(whatsappLink, '_blank');
-
-    alert('Você será redirecionado para o WhatsApp para completar seu cadastro!');
+      alert('Inscrição confirmada!\n' +
+          'Você já está na nossa lista de interesse. Em breve, entraremos em contato com mais informações sobre o plano selecionado e os próximos passos.');
+    } catch (error) {
+      console.error("Erro ao salvar os dados:", error);
+      alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.');
+    }
   };
 
   const annualSavings = (39.00 * 12) - 708;
@@ -78,7 +95,7 @@ Aguardo mais informações! 😊`;
                 Escolha Seu Plano
               </h1>
               <p className="text-xl text-gray-600">
-                Transforme sua residência com nosso planner baseado em IA
+                Transforme o processo de passar na residência
               </p>
             </div>
 
@@ -93,10 +110,6 @@ Aguardo mais informações! 😊`;
                   </div>
                 </div>
                 <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-[#359e93] mr-3" />
-                    <span>Planner personalizado com IA</span>
-                  </li>
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-[#359e93] mr-3" />
                     <span>Priorização automática de estudos</span>
@@ -151,10 +164,6 @@ Aguardo mais informações! 😊`;
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-[#359e93] mr-3" />
                     <span>Suporte prioritário</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-[#359e93] mr-3" />
-                    <span>Análises avançadas</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-[#359e93] mr-3" />
@@ -233,7 +242,7 @@ Aguardo mais informações! 😊`;
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#359e93] focus:border-transparent transition-all"
                     >
-                      <option value="">Selecione sua especialidade</option>
+                      <option value="">Selecione sua especialidade de interesse</option>
                       <option value="clinica-medica">Clínica Médica</option>
                       <option value="cirurgia-geral">Cirurgia Geral</option>
                       <option value="pediatria">Pediatria</option>
@@ -257,12 +266,19 @@ Aguardo mais informações! 😊`;
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#359e93] focus:border-transparent transition-all"
                   >
-                    <option value="">Selecione o ano</option>
-                    <option value="R1">R1 - Primeiro ano</option>
-                    <option value="R2">R2 - Segundo ano</option>
-                    <option value="R3">R3 - Terceiro ano</option>
-                    <option value="R4">R4 - Quarto ano</option>
-                    <option value="R5">R5 - Quinto ano</option>
+                    <option value="">Selecione o perído</option>
+                    <option value="R1">Primeiro</option>
+                    <option value="R2">Segundo</option>
+                    <option value="R3">Terceiro</option>
+                    <option value="R4">Quarto</option>
+                    <option value="R5">Quinto</option>
+                    <option value="R6">Sexto</option>
+                    <option value="R6">Sétimo</option>
+                    <option value="R6">Oitavo</option>
+                    <option value="R6">Nono</option>
+                    <option value="R6">Décimo</option>
+                    <option value="R6">Décimo Primeiro</option>
+                    <option value="R6">Décimo Segundo</option>
                   </select>
                 </div>
 
@@ -270,7 +286,7 @@ Aguardo mais informações! 😊`;
                     onClick={handleSubmit}
                     className="w-full bg-gradient-to-r from-[#359e93] to-emerald-600 text-white py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
                 >
-                  Começar agora
+                  Tenho interesse
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </button>
               </div>
@@ -295,7 +311,6 @@ Aguardo mais informações! 😊`;
               <nav className="hidden md:flex space-x-8">
                 <a href="#features" className="text-gray-600 hover:text-[#359e93] transition-colors">Recursos</a>
                 <a href="#video" className="text-gray-600 hover:text-[#359e93] transition-colors">Demo</a>
-                <a href="#pricing" className="text-gray-600 hover:text-[#359e93] transition-colors">Preços</a>
               </nav>
             </div>
           </div>
@@ -306,7 +321,7 @@ Aguardo mais informações! 😊`;
           <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-[#359e93] font-medium mb-8">
               <Star className="w-4 h-4 mr-2" />
-                <span>Transforme sua residência com IA</span>
+              <span>Transforme sua residência com IA</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -315,7 +330,7 @@ Aguardo mais informações! 😊`;
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              PersonalizaçãoA gente te ajuda a manter o foco com um plano de estudos adaptado, feito sob medida pra sua rotina real – e cobramos você <strong>todo dia no WhatsApp.</strong>
+              A gente te ajuda a manter o foco com um plano de estudos adaptado, feito sob medida pra sua rotina real – e cobramos você <strong>todo dia no WhatsApp.</strong>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -323,10 +338,15 @@ Aguardo mais informações! 😊`;
                   onClick={() => setCurrentPage('plans')}
                   className="bg-gradient-to-r from-[#359e93] to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center"
               >
-                Começar agora
+                Quero meu plano personalizado
                 <ChevronRight className="w-5 h-5 ml-2" />
               </button>
-              <button className="border-2 border-[#359e93] text-[#359e93] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#359e93] hover:text-white transition-all duration-300 flex items-center">
+              <button
+                  onClick={() => {
+                    const section = document.getElementById('video')
+                    section?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  className="border-2 border-[#359e93] text-[#359e93] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#359e93] hover:text-white transition-all duration-300 flex items-center">
                 <Play className="w-5 h-5 mr-2" />
                 Ver demonstração
               </button>
@@ -367,7 +387,7 @@ Aguardo mais informações! 😊`;
                 Recursos que transformam sua residência
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Nossa IA foi treinada especificamente para entender os desafios únicos da residência médica
+                Criamos uma solução que acompanha sua rotina, se adapta às mudanças e te cobra quando mais precisa.
               </p>
             </div>
 
@@ -406,6 +426,7 @@ Aguardo mais informações! 😊`;
         </section>
 
         {/* Video Section */}
+        {/* {/* Video Section */}
         <section id="video" className="py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -413,21 +434,26 @@ Aguardo mais informações! 😊`;
                 Veja como funciona na prática
               </h2>
               <p className="text-xl text-gray-600">
-                Demonstração completa do Seu Residente e como ele resolve os problemas reais da residência
+                Entenda a proposta do Seu Residente e como ele pode transformar sua rotina de estudos
               </p>
             </div>
 
             <div className="relative bg-gradient-to-r from-[#359e93] to-emerald-600 rounded-3xl p-2">
-              <div className="bg-gray-900 rounded-2xl aspect-video flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-white/30 transition-colors cursor-pointer">
-                    <Play className="w-8 h-8 text-white ml-1" />
-                  </div>
-                  <p className="text-white text-lg font-medium">Vídeo em breve</p>
-                  <p className="text-white/80 text-sm">Estamos finalizando a gravação</p>
-                </div>
+              <div className="aspect-video rounded-2xl overflow-hidden">
+                <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/c6fndgHB-YE"
+                    title="Demonstração Seu Residente"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
               </div>
             </div>
+          </div>
+        </section>
+        <section id="video" className="py-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           </div>
         </section>
 
@@ -435,16 +461,16 @@ Aguardo mais informações! 😊`;
         <section className="bg-gradient-to-r from-[#359e93] to-emerald-600 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
-              Pronto para transformar sua residência?
+              Pronto para transformar sua rotina de estudos?
             </h2>
             <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-              Junte-se aos residentes que já estão otimizando seus estudos com nossa IA
+              Escolha seu plano ideal e entre na lista de interessados para ser avisado assim que abrirmos as vagas.
             </p>
             <button
                 onClick={() => setCurrentPage('plans')}
                 className="bg-white text-[#359e93] px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center"
             >
-              Começar gratuitamente
+              Quero fazer parte
               <ArrowRight className="w-5 h-5 ml-2" />
             </button>
           </div>

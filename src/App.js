@@ -27,8 +27,23 @@ const SeuResidentLanding = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Dados enviados com sucesso! Entraremos em contato em breve.');
+
+    const mensagem = `Olá! Gostaria de conhecer mais sobre o Seu Residente 👋
+
+*Dados do cadastro:*
+Nome: ${formData.name}
+Email: ${formData.email}
+Telefone: ${formData.phone}
+Especialidade: ${formData.specialty}
+Ano de Residência: ${formData.residencyYear}
+Plano de interesse: ${formData.plan === 'monthly' ? 'Mensal' : 'Anual'}
+
+Aguardo mais informações! 😊`;
+
+    const whatsappLink = `https://wa.me/5511947165215?text=${encodeURIComponent(mensagem)}`;
+    window.open(whatsappLink, '_blank');
+
+    alert('Você será redirecionado para o WhatsApp para completar seu cadastro!');
   };
 
   const annualSavings = (39.00 * 12) - 708;

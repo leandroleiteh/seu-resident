@@ -3,6 +3,8 @@ import { ChevronRight, Brain, Clock, Target, Users, Check, Play, Star, ArrowRigh
 import './index.css';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import logoFooter from './assets/logo-teste.png';
+import logoHeader from './assets/logo-header.png';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDEZivtm-6qD_uvBzwAo6IXJAcbxWXoRfs",
@@ -74,10 +76,13 @@ const SeuResidentLanding = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-4">
                 <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#359e93] to-emerald-600 flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
+                  <div className="w-21 h-13 rounded-xl bg-gradient-to-r flex items-center justify-center">
+                    <img
+                        src={logoHeader}
+                        alt="Seu Residente Logo"
+                        className="h-28 w-auto object-contain"
+                    />
                   </div>
-                  <span className="font-bold text-xl text-gray-900">Seu Residente</span>
                 </div>
                 <button
                     onClick={() => setCurrentPage('landing')}
@@ -303,10 +308,13 @@ const SeuResidentLanding = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-4">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#359e93] to-emerald-600 flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-white" />
+                <div className="w-21 h-21 rounded-xl bg-gradient-to-r flex items-center justify-center">
+                  <img
+                    src={logoHeader}
+                    alt="Seu Residente Logo"
+                    className="h-28 w-auto object-contain"
+                  />
                 </div>
-                <span className="font-bold text-xl text-gray-900">Seu Residente</span>
               </div>
               <nav className="hidden md:flex space-x-8">
                 <a href="#features" className="text-gray-600 hover:text-[#359e93] transition-colors">Recursos</a>
@@ -481,9 +489,6 @@ const SeuResidentLanding = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#359e93] to-emerald-600 flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-white" />
-                </div>
                 <span className="font-bold text-lg">Seu Residente</span>
               </div>
               <p className="text-gray-400 text-sm">
